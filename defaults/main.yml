@@ -1,0 +1,84 @@
+---
+
+mongodb_pidfile_path: /var/run/mongodb/mongod.pid
+
+mongodb_user_update_password: "on_create"        # MongoDB user password update default policy
+mongodb_manage_service: true
+
+mongodb_user: mongod
+mongodb_daemon_name: mongod
+
+## net Options
+mongodb_net_bindip: 0.0.0.0                    # Comma separated list of ip addresses to listen on
+mongodb_net_http_enabled: false                  # Enable http interface
+mongodb_net_ipv6: false                          # Enable IPv6 support (disabled by default)
+mongodb_net_maxconns: 65536                      # Max number of simultaneous connections
+mongodb_net_port: 27017                          # Specify port number
+
+## security Options
+# Disable or enable security. Possible values: 'disabled', 'enabled'
+mongodb_security_authorization: "enabled"
+mongodb_security_keyfile: /etc/mongodb-keyfile   # Specify path to keyfile with password for inter-process authentication
+
+## storage Options
+mongodb_storage_dbpath: /data/mongodb                 # Directory for datafiles
+mongodb_storage_engine: wiredTiger
+
+mongodb_storage_journal_enabled: true            # Enable journaling
+mongodb_storage_prealloc: true                   # Enable data file preallocation
+
+## systemLog Options
+## The destination to which MongoDB sends all log output. Specify either 'file' or 'syslog'.
+## If you specify 'file', you must also specify mongodb_systemlog_path.
+mongodb_systemlog_destination: "file"
+mongodb_systemlog_logappend: true                                        # Append to logpath instead of over-writing
+mongodb_systemlog_path: /data/log/mongodb/mongod.log   # Log file to send write to instead of stdout
+
+## replication Options
+mongodb_replication_replset: shard1               # Enable replication <setname>[/<optionalseedhostlist>]
+mongodb_replication_replindexprefetch: "all"      # specify index prefetching behavior (if secondary) [none|_id_only|all]
+mongodb_replication_oplogsize: 1024               # specifies a maximum size in megabytes for the replication operation log
+
+# MMS Agent
+mongodb_mms_group_id: ""
+mongodb_mms_api_key: ""
+mongodb_mms_base_url: https://mms.mongodb.com
+
+# password for inter-process authentication
+# please regenerate this file on production environment with command 'openssl rand -base64 741'
+mongodb_keyfile_content: |
+  GhOnDOdsadfqfmFgsUoVT9U44wercAsA/F47t7ufeAFgNlM4rirt0eQfSE5mfwx1
+  RXSKAHvT+FtXwXGfJWr/MLerv7SjXjRfElDzrPRaipkainp2DbkeWSlryGfcJWLG
+  LIktxq0r0moQyzMyCu09723gEHuTumy7nYSXpF9hiQ1QefZ+Zg5ILaNeqnsF2BBU
+  G00u9Adrc2oS3sl4EW7c/jK4tfidKV4PxTNtLMWEvGePQfd7WjNxBLlA40TbzhZN
+  Zz2Zq1kKjxmeSMh0s54VP7L7hp1xBw9prxKcuhMfdMofBFURQ47QdEq/aS0tiNkE
+  bJuoVP+Dy5GELC2RqB9lH73Ng5uWUIUPK7oCy0zCqyzxR8puvSB1lVNyHpjjJYfD
+  xAuMYgmq+fRpxfYy80Tyhdvsqa+j2y/uyxxbhRac0PseS2NVxOaBCVey54oV3ozF
+  fYBwX9fB99vZSeNvwSZ2+ahC6MSKmrlHLbs5U3WC4ELOzmn8p653rxvk6h6+ux3O
+  c+9AgFLDBfwenjJYsDUI/pRkGiImrJv5LsxlGj6D/S6z4HBRGL2sE+0pzoSlK9RZ
+  pqP98ZC0HkZ0HpNocZMQg5iZIpkDMm78jnI20/r741dyikpCaMZzswXNZ98naRjq
+  A+7eXuYHDtweR4oxgwX8SD6ni6/K+DfahsRut4UWoTLQblx90gChRSYxtnutCOLD
+  OBmwp52dB9gxEthr8LvQa+Zuw/25M7mBiynKv9B862AJYAWFmJ5PchgUrLLeYRH6
+  m4lpcElYPdwATD74D5sE7FS/JngcAIXuhKpBM62/ehD2sj2ZhTKMtCJAKAx8siZy
+  lMW90w3WFa96xe62Gi9vQdP/+hycFc7JFLsCoAO3PJPUfGLb01hX26l+UDhe9cZU
+  U5cOdB0Xr1NUxql0a/PgD9Qp0JYCwCrjXgZQXVJex4JKxa4CL2naiH8E404/ekCj
+  mvVwFuK5JkMcFt0VZNFua2tRwTse
+
+# names and passwords for administrative users
+mongodb_user_admin_name: siteUserAdmin
+mongodb_user_admin_password: passw0rd
+
+mongodb_root_admin_name: siteRootAdmin
+mongodb_root_admin_password: passw0rd
+
+mongodb_root_backup_name: "backupuser"
+mongodb_root_backup_password: "passw0rd"
+
+
+mongodb_users:
+  - {
+    name: audit_user,
+    password: audit_user#123,
+    roles: dbOwner,
+    database: audit
+}
